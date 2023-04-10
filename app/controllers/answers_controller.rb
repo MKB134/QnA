@@ -4,6 +4,13 @@ class AnswersController < ApplicationController
   def show
   end
 
+  def new
+    @answer = Answer.new
+  end
+
+  def edit
+  end
+
   private
 
   def load_answer
