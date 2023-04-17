@@ -1,4 +1,5 @@
 class AnswersController < ApplicationController
+  before_action :authenticate_user!, only: %i[create]
   before_action :load_answer, only: %i[show edit update destroy]
 
   def show
@@ -16,9 +17,9 @@ class AnswersController < ApplicationController
     @answer = @question.answers.new(answer_params)
 
     if @answer.save
-      redirect_to @answer
+      redirect_to @answer.question, notice: 'Your answer added'
     else
-      render :new
+      render 'questions/show'
     end
   end
 

@@ -1,3 +1,14 @@
 h1= @question.title
 p= @question.body
+
+h2 Answers
+  @question.answer each do |answer|
+  p= answer.body
+
+= render 'shared/short_errors', resource: @answer
+= form_with model: [@question, @question.answers.new], local: true do |f|
+ =  f.label :body, 'Answer'
+ =  f.text_area :body
+ =  f.submit 'Reply'
+
 p= link_to 'Back', questions_path
