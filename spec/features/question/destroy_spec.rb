@@ -10,7 +10,7 @@ feature 'Автор может удалить свой вопрос, но не �
   given(:other_question) { create(:question) }
 
   describe 'Аутентифицированный пользователь пытается удалить вопрос' do
-    background { login(user) }
+    background { sign_in(user) }
 
     scenario 'являясь автором вопроса' do
       visit question_path(question)
