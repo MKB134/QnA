@@ -9,8 +9,8 @@ feature 'Пользователь может просматривать вопр
   given(:question) { create(:question) }
 
   background do
-    question.answers.create!(body: 'answer 1', user: user.id)
-    question.answers.create!(body: 'answer 2', user: user.id)
+    question.answers.create!(body: 'answer 1', user_id: user.id)
+    question.answers.create!(body: 'answer 2', user_id: user.id)
   end
 
   scenario 'Пользователь просматривает Вопрос и ответы к нему' do

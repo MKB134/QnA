@@ -9,9 +9,6 @@ h2 Answers
   = f.text_area :body
   = f.submit 'Reply'
 
-p= link_to('Delete',
-        question_path(@question),
-        method: :delete,
-        data: {confirm: 'Are you sure?'},
-        class: 'btn btn-danger')
+- if current_user&.author_of?(@question)
+  p= link_to('Delete question', question_path(@question), method: :delete, data: {confirm: 'Are you sure?'}, class: 'btn btn-danger')
 p= link_to 'Back', questions_path
