@@ -1,14 +1,17 @@
 h1= @question.title
 p= @question.body
-
 h2 Answers
 - @question.answers.each do |answer|
-  p = answer.body
-
+  p= answer.body
 = render 'shared/short_errors', resource: @answer
 = form_with model: [@question, @question.answers.new], local: true do |f|
- =  f.label :body, 'Answer'
- =  f.text_area :body
- =  f.submit 'Reply'
+  = f.label :body, 'Answer'
+  = f.text_area :body
+  = f.submit 'Reply'
 
-p = link_to 'Back', questions_path
+p= link_to('Delete',
+        question_path(@question),
+        method: :delete,
+        data: {confirm: 'Are you sure?'},
+        class: 'btn btn-danger')
+p= link_to 'Back', questions_path

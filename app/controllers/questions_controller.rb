@@ -34,8 +34,12 @@ class QuestionsController < ApplicationController
   end
 
   def destroy
+    unless @question.user_id == current_user.id
+      return redirect_to questions_path, notice: 'Delete unavailable! You are not the author of the question.'
+    end
+
     @question.destroy
-    redirect_to questions_path
+    redirect_to questions_path, notice: 'Question was successfully deleted.'
   end
 
   private
