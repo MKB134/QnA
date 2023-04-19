@@ -1,5 +1,5 @@
 class AnswersController < ApplicationController
-  before_action :authenticate_user!, only: %i[create]
+  before_action :authenticate_user!, except: %i[show]
   before_action :load_answer, only: %i[show edit update destroy]
 
   def show
@@ -32,8 +32,12 @@ class AnswersController < ApplicationController
   end
 
   def destroy
+    unless current_user.author_of?(@answer)
+      return @answer.question, notice: 'Delete unavailable! You are not author of the answer'
+    end
+
     @answer.destroy
-    redirect_to @answer.question
+    redirect_to @answer.question, notice: 'Answer was successfully deleted.'
   end
 
   private

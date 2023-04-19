@@ -1,8 +1,11 @@
 h1= @question.title
 p= @question.body
 h2 Answers
-- @question.answers.each do |answer|
+- @question.answers.reject(&:new_record?).each do |answer|
   p= answer.body
+  - if current_user&.author_of?(answer)
+    p= link_to('Delete answer', answer_path(answer), method: :delete, data: {confirm: 'Are you sure?'}, class: 'btn btn-danger')
+
 = render 'shared/short_errors', resource: @answer
 = form_with model: [@question, @question.answers.new], local: true do |f|
   = f.label :body, 'Answer'
