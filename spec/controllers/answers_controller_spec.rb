@@ -120,14 +120,14 @@ RSpec.describe AnswersController, type: :controller do
       end
     end
 
-    context 'No author' do
+    context 'Not author' do
       before { login(user) }
 
       it 'No delete the answer' do
         expect { delete :destroy, params: {id: answer} }.to_not change(Answer, :count)
       end
 
-      it 'redirect to ' do
+      it 'redirects to index ' do
         delete :destroy, params: {id: answer}
         expect(response).to redirect_to answer.question
       end

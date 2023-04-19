@@ -33,7 +33,7 @@ class AnswersController < ApplicationController
 
   def destroy
     unless current_user.author_of?(@answer)
-      return @answer.question, notice: 'Delete unavailable! You are not author of the answer'
+      return redirect_to @answer.question, notice: 'Delete unavailable! You are not author of the answer'
     end
 
     @answer.destroy
