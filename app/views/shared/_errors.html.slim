@@ -1,5 +1,5 @@
-if resource&.errors.present?
-b= " #{resource.errors.count} error(s)  detected "
-ul
-  -resource.errors.full_messages.each do |message|
-    li= message
+- if resource.errors.present?
+  b = "#{resource.errors.count} error(s)  detected"
+  ul
+    - resource.errors.full_messages.each do |message|
+      li = message
