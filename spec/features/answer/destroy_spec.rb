@@ -1,15 +1,15 @@
 require 'rails_helper'
 
-feature 'Пользователь может удалить свой ответ', %q(
-  Что-бы избавиться от ненужного ответа
-  Автор ответа
-  Может удалить ответ
+feature 'The user can delete their answer', %q(
+  To get rid of an unnecessary answer
+  Answer author
+  Can delete answer
 ) do
   given(:user) { create(:user) }
   given(:answer) { create(:answer, body: 'Bad comment') }
 
-  describe 'Аутентифицированный пользователь пытается удалить вопрос' do
-    scenario 'Являясь автором вопроса' do
+  describe 'An authenticated user is trying to delete a question' do
+    scenario 'As the author of the question' do
       sign_in(answer.user)
 
       visit question_path(answer.question)
@@ -19,13 +19,13 @@ feature 'Пользователь может удалить свой ответ'
       expect(page).to have_content 'Answer was successfully deleted.'
     end
 
-    scenario 'Не являясь автором вопроса' do
+    scenario 'Not the author of the question' do
       sign_in(user)
 
       expect(page).to_not have_link 'Delete answer'
     end
 
-    scenario 'Не аутентифицированный пользователь' do
+    scenario 'Unauthenticated user' do
       visit question_path(answer.question)
 
       expect(page).to_not have_link 'Delete answer'

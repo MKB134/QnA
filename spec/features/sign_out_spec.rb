@@ -1,14 +1,14 @@
 require 'rails_helper'
 
-feature 'Аутетифицированный пользователь может выйти из системы', %q{
-  Чтобы завершать сессию
-  Аутентифицированный пользователь
-  Может выйти из системы
+feature 'Authenticated user can logout', %q{
+  To end a session
+  Authenticated User
+  Can log out
 } do
 
   given(:user) { create(:user) }
 
-  scenario 'Аутентифицированный пользователь выходит из системы' do
+  scenario 'Authenticated user logs out' do
     sign_in(user)
     click_on 'Log out'
     expect(page).to have_content 'Signed out successfully.'
