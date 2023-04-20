@@ -1,4 +1,5 @@
 class AnswersController < ApplicationController
+  before_action :authenticate_user!, except: %i[show]
   before_action :load_answer, only: %i[show edit update destroy]
 
   def show
@@ -13,12 +14,12 @@ class AnswersController < ApplicationController
 
   def create
     @question = Question.find(params[:question_id])
-    @answer = @question.answers.new(answer_params)
+    @answer = @question.answers.new(answer_params.merge(user_id: current_user.id))
 
     if @answer.save
-      redirect_to @answer
+      redirect_to @answer.question, notice: 'Your answer added'
     else
-      render :new
+      render 'questions/show'
     end
   end
 
@@ -31,8 +32,12 @@ class AnswersController < ApplicationController
   end
 
   def destroy
+    unless current_user.author_of?(@answer)
+      return redirect_to @answer.question, notice: 'Delete unavailable! You are not author of the answer'
+    end
+
     @answer.destroy
-    redirect_to @answer.question
+    redirect_to @answer.question, notice: 'Answer was successfully deleted.'
   end
 
   private
