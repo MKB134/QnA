@@ -9,7 +9,7 @@ feature 'The user, being on the question page, can answer the question', %q{
   given(:user) { create(:user) }
   given(:question) { create(:question) }
 
-  describe 'Authenticated User' do
+  describe 'Authenticated User', js: true do
     background do
       sign_in(user)
 
@@ -24,7 +24,9 @@ feature 'The user, being on the question page, can answer the question', %q{
       expect(page).to have_content 'Test answer'
     end
 
-    scenario 'Writes an answer to a question with errors' do
+    scenario 'Writes an answer to a question with errors', js: true do
+      visit question_path(question)
+
       click_on 'Reply'
 
       expect(page).to have_content "Answer can't be blank"

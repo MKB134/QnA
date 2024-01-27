@@ -71,7 +71,7 @@ end
 group :test do
   # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
   gem "capybara"
-  gem "selenium-webdriver"
+  gem 'selenium-webdriver', '~> 4.4.0'
   gem "webdrivers"
   gem "shoulda-matchers"
   gem "rails-controller-testing"
